@@ -1,6 +1,6 @@
 from flask import Flask, request, make_response, jsonify
 from flask_migrate import  Migrate
-from models import *
+from models import db ,*
 from dotenv import load_dotenv
 import os
 from flask_cors import CORS
@@ -28,8 +28,9 @@ def index():
     return "<h1>Hello, welcome to the Kitchen API</h1>"
 
 
-# User Registration
-@app.route('/register', methods = ['POST'])
+# User Registration 
+
+@app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
     username = data.get('username')
@@ -37,38 +38,56 @@ def register():
     email = data.get('email')
     full_name = data.get('full_name')
 
+    # Check if the username already exists
     if User.query.filter_by(username=username).first():
-        return make_response(jsonify({"msg":"Username already exists"}), 201)
-    
-    new_user = User(username=username, password=password, email=email, full_name=full_name)
-    new_user.set_password(data.get('password'))
+        return make_response(jsonify({"msg": "Username already exists"}), 400)
+
+    # Create a new user and hash the password
+    new_user = User(
+        username=username,
+        email=email,
+        full_name=full_name
+    )
+    new_user.set_password(password)  # Hash the password here
     db.session.add(new_user)
     db.session.commit()
 
-    return make_response(jsonify({"msg":"User registered successfully"}), 200)
+    return make_response(jsonify({"msg": "User registered successfully"}), 201)
 
- #User Login
+
+
+# #User Login
+
 @app.route('/login', methods=['POST'])
 def login():
+    try:
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
 
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
+        # Query for the user in the database
+        user = User.query.filter_by(username=username).first()
 
-    user = User.query.filter_by(username=username).first()
-    if user and user.check_password(password):
-        access_token = create_access_token(identity=user.id)
-        refresh_token =create_refresh_token(identity= user.username)
-        return make_response ({
-            'msg': 'Login successful',
-            'tokens':{
-                "access_token": access_token,
-                "refresh_token": refresh_token
-            }
-            
-                                     },200)
+        # Check if user exists and the password is correct
+        if user and user.check_password(password):  # Use check_password to verify
+            # Generate access and refresh tokens
+            access_token = create_access_token(identity=user.id)
+            refresh_token = create_refresh_token(identity=user.username)
+            return make_response({
+                'msg': 'Login successful',
+                'tokens': {
+                    "access_token": access_token,
+                    "refresh_token": refresh_token
+                }
+            }, 200)
+        else:
+            return make_response(jsonify({"msg": "Invalid username or password"}), 401)
+    
+    except Exception as e:
+        logging.error(f"Error during login: {e}")
+        return make_response(jsonify({"msg": "Internal server error"}), 500)
 
-    return make_response(jsonify({"msg": "Bad username or password"}), 401)
+
 
 # LogOut 
 
@@ -82,7 +101,7 @@ def logout():
 
     # Recipes Route
 @app.route('/recipes', methods=['GET', 'POST'])
-@jwt_required()
+# @jwt_required()
 
 def handle_recipes():
     current_user = get_jwt_identity()
@@ -142,7 +161,7 @@ def recipe_by_id(id):
 
 # Categories Route
 @app.route('/categories', methods=['GET', 'POST'])
-@jwt_required()
+# @jwt_required()
 
 def handle_categories():
     current_user = get_jwt_identity()
@@ -168,7 +187,7 @@ def handle_categories():
 
 @app.route('/categories/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 
-@jwt_required()
+# @jwt_required()
 
 def category_by_id(id):
     current_user = get_jwt_identity()
@@ -200,7 +219,7 @@ def category_by_id(id):
 
 # Reviews Route
 @app.route('/reviews', methods=['GET', 'POST'])
-@jwt_required()
+# @jwt_required()
 def handle_reviews():
     current_user = get_jwt_identity()
     
@@ -225,7 +244,7 @@ def handle_reviews():
         return make_response(new_review.to_dict(), 201)
 
 @app.route('/reviews/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
-@jwt_required()
+# @jwt_required()
 def review_by_id(id):
 
     current_user = get_jwt_identity()
