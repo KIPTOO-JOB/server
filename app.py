@@ -1,6 +1,6 @@
 from flask import Flask, request, make_response, jsonify
 from flask_migrate import  Migrate
-from models import db ,*
+from models import *
 from dotenv import load_dotenv
 import os
 from flask_cors import CORS
