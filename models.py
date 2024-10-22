@@ -22,6 +22,7 @@ class Recipe(db.Model, SerializerMixin):
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String(250), nullable=False)
     instructions = db.Column(db.String, nullable=False)
+    image_url = db.Column(db.String,nullable=False)
     
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp)
     updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
