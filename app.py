@@ -101,7 +101,7 @@ def logout():
 
     # Recipes Route
 @app.route('/recipes', methods=['GET', 'POST'])
-# @jwt_required()
+@jwt_required()
 
 def handle_recipes():
     current_user = get_jwt_identity()
@@ -161,7 +161,7 @@ def recipe_by_id(id):
 
 # Categories Route
 @app.route('/categories', methods=['GET', 'POST'])
-# @jwt_required()
+@jwt_required()
 
 def handle_categories():
     current_user = get_jwt_identity()
@@ -187,7 +187,7 @@ def handle_categories():
 
 @app.route('/categories/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 
-# @jwt_required()
+@jwt_required()
 
 def category_by_id(id):
     current_user = get_jwt_identity()
@@ -219,7 +219,7 @@ def category_by_id(id):
 
 # Reviews Route
 @app.route('/reviews', methods=['GET', 'POST'])
-# @jwt_required()
+@jwt_required()
 def handle_reviews():
     current_user = get_jwt_identity()
     
@@ -244,7 +244,7 @@ def handle_reviews():
         return make_response(new_review.to_dict(), 201)
 
 @app.route('/reviews/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
-# @jwt_required()
+@jwt_required()
 def review_by_id(id):
 
     current_user = get_jwt_identity()
