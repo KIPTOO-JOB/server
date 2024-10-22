@@ -1,8 +1,8 @@
-""" image url
+"""psycopg2
 
-Revision ID: f55f2efef9fc
+Revision ID: 1237d6622e54
 Revises: 
-Create Date: 2024-10-22 11:05:43.089419
+Create Date: 2024-10-22 12:33:47.700344
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f55f2efef9fc'
+revision = '1237d6622e54'
 down_revision = None
 branch_labels = None
 depends_on = None
