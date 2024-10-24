@@ -1,9 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
-from sqlalchemy import func 
+from sqlalchemy import func
 from sqlalchemy_serializer import SerializerMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
 
 db = SQLAlchemy()
 
@@ -22,7 +21,7 @@ class Recipe(db.Model, SerializerMixin):
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String(250), nullable=False)
     instructions = db.Column(db.String, nullable=False)
-    image_url = db.Column(db.String,nullable=False)
+    image_url = db.Column(db.String, nullable=False)
     
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp)
     updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
@@ -31,7 +30,8 @@ class Recipe(db.Model, SerializerMixin):
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     category = db.relationship('Category', back_populates='recipes')
 
-    reviews = db.relationship('Review', back_populates='recipe')
+    # Add cascade="all, delete-orphan" to ensure reviews are deleted when a recipe is deleted
+    reviews = db.relationship('Review', back_populates='recipe', cascade="all, delete-orphan")
 
     ingredients = db.relationship('Ingredient', secondary=recipe_ingredient, back_populates='recipes')
 
@@ -72,7 +72,7 @@ class Review(db.Model, SerializerMixin):
     rating = db.Column(db.Integer)
     comment = db.Column(db.String(450))
 
-    recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.id'))
+    recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.id', ondelete="CASCADE"))
     recipe = db.relationship('Recipe', back_populates='reviews')
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -82,7 +82,7 @@ class Review(db.Model, SerializerMixin):
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ("-reviews.user","-created_at","updated_at")
+    serialize_rules = ("-reviews.user", "-created_at", "-updated_at")
 
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String, nullable=False)
@@ -95,15 +95,14 @@ class User(db.Model, SerializerMixin):
 
     reviews = db.relationship('Review', back_populates='user')
     
-    @validates(email)
-    def validate_email(self,key,value):
+    @validates('email')
+    def validate_email(self, key, value):
         if "@" not in value:
-            raise ValueError ("invalid email address")        
+            raise ValueError("Invalid email address")        
         return value
     
-    # password hashing
-    
-    def set_password(self,password):
+    # Password hashing
+    def set_password(self, password):
         self.password = generate_password_hash(password)
 
     def check_password(self, password):
