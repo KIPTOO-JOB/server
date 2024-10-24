@@ -6,7 +6,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
-# Association Table for Recipe and Ingredient
 recipe_ingredient = db.Table('recipe_ingredient',
     db.Column('recipe_id', db.Integer, db.ForeignKey('recipes.id'), primary_key=True),
     db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredients.id'), primary_key=True)
