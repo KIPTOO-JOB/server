@@ -70,6 +70,13 @@ def register():
 
     return make_response(jsonify({"msg": "User registered successfully"}), 200)
 
+
+@jwt.token_in_blocklist_loader
+def token_in_blocklist(jwt_header, jwt_payload):
+    jti = jwt_payload['jti']
+    token = db.session.query(TokenBlocklist).filter(TokenBlocklist.jti == jti).scalar()
+    return token is not None
+ 
 # User Login
 @app.route('/login', methods=['POST'])
 def login():

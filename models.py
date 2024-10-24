@@ -106,3 +106,10 @@ class User(db.Model, SerializerMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+
+    
+class TokenBlocklist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(255), nullable=False, index=True)
+    created_at = db.Column(db.DateTime, default=func.now())
