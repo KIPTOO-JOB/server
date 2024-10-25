@@ -25,7 +25,7 @@ jwt = JWTManager(app)
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
     identity = jwt_data["sub"]
-    return User.query.filter_by(id=identity).one_or_none()  # Assuming you use user ID for identity
+    return User.query.filter_by(id=identity).one_or_none() 
 
 # JWT error handling
 @jwt.expired_token_loader
@@ -86,8 +86,8 @@ def login():
 
     user = User.query.filter_by(username=username).first()
     if user and user.check_password(password):
-        access_token = create_access_token(identity=user.id)  # using user ID
-        refresh_token = create_refresh_token(identity=user.id)  # use user ID here too if applicable
+        access_token = create_access_token(identity=user.id) 
+        refresh_token = create_refresh_token(identity=user.id) 
         return make_response({
             'msg': 'Login successful',
             'tokens': {
