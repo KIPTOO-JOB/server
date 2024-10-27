@@ -16,7 +16,7 @@ class Recipe(db.Model, SerializerMixin):
 
     serialize_rules = ("-category.recipes", "-reviews.recipe", "-ingredients.recipes", "-created_at", "-updated_at")
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True )
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String(250), nullable=False)
     instructions = db.Column(db.String, nullable=False)
@@ -40,7 +40,7 @@ class Category(db.Model, SerializerMixin):
 
     serialize_rules = ("-recipes.category",)
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True )
     name = db.Column(db.String)
     description = db.Column(db.String(250))
 
@@ -52,7 +52,7 @@ class Ingredient(db.Model, SerializerMixin):
 
     serialize_rules = ("-recipes.ingredients",)
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     name = db.Column(db.String)
     
     # Ingredient type (e.g., spice, dairy)
@@ -67,7 +67,7 @@ class Review(db.Model, SerializerMixin):
 
     serialize_rules = ("-recipe.reviews", "-user.reviews")
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True )
     rating = db.Column(db.Integer)
     comment = db.Column(db.String(450))
 
@@ -83,7 +83,7 @@ class User(db.Model, SerializerMixin):
 
     serialize_rules = ("-reviews.user", "-created_at", "-updated_at")
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True ,autoincrement=True)
     full_name = db.Column(db.String, nullable=False)
     username = db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String, unique=True, nullable=False)
@@ -110,6 +110,6 @@ class User(db.Model, SerializerMixin):
 
     
 class TokenBlocklist(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     jti = db.Column(db.String(255), nullable=False, index=True)
     created_at = db.Column(db.DateTime, default=func.now())
