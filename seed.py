@@ -74,7 +74,7 @@ with app.app_context():
         description='Smashed avocado on toasted bread, topped with salt, pepper, and chili flakes.',
         instructions='Toast bread, mash avocado, and spread on top.',
         category=category_5,
-        image_url='https://images.unsplash.com/photo-1526151271220-4d68c0f33f44?w=500&auto=format&fit=crop&q=60',
+        image_url='https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZvY2FkbyUyMHRvYXN0fGVufDB8fDB8fHww',
         created_at=now,
         updated_at=now
     )
@@ -83,7 +83,7 @@ with app.app_context():
         description='Fresh mozzarella, tomatoes, and basil drizzled with balsamic glaze.',
         instructions='Layer mozzarella and tomatoes, sprinkle with basil, and drizzle with glaze.',
         category=category_3,
-        image_url='https://images.unsplash.com/photo-1514516877562-6ac4d72ab2cf?w=500&auto=format&fit=crop&q=60',
+        image_url='https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2FsYWR8ZW58MHx8MHx8fDA%3D',
         created_at=now,
         updated_at=now
     )
@@ -92,7 +92,7 @@ with app.app_context():
         description='Pasta with fresh vegetables and a light garlic sauce.',
         instructions='Cook pasta, sauté vegetables, and toss with pasta and sauce.',
         category=category_2,
-        image_url='https://images.unsplash.com/photo-1589927986089-3581c1e4571c?w=500&auto=format&fit=crop&q=60',
+        image_url='https://images.unsplash.com/photo-1516100882582-96c3a05fe590?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGFzdGF8ZW58MHx8MHx8fDA%3D',
         created_at=now,
         updated_at=now
     )
@@ -101,7 +101,7 @@ with app.app_context():
         description='A hearty stew made with chickpeas, tomatoes, and spices.',
         instructions='Simmer chickpeas with tomatoes and spices until thick.',
         category=category_4,
-        image_url='https://images.unsplash.com/photo-1603791448208-b4f0c3a4b45f?w=500&auto=format&fit=crop&q=60',
+        image_url='https://images.unsplash.com/photo-1630175914039-69ffca8a0604?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3Rld3xlbnwwfHwwfHx8MA%3D%3D',
         created_at=now,
         updated_at=now
     )
@@ -110,7 +110,7 @@ with app.app_context():
         description='Fluffy pancakes made with ripe bananas and topped with syrup.',
         instructions='Mix ingredients, pour on skillet, and cook until golden.',
         category=category_5,
-        image_url='https://images.unsplash.com/photo-1587240822973-90d4c52eb236?w=500&auto=format&fit=crop&q=60',
+        image_url='https://images.unsplash.com/photo-1490457843367-34b21b6ccd85?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGFuY2FrZXN8ZW58MHx8MHx8fDA%3D',
         created_at=now,
         updated_at=now
     )
